@@ -1,5 +1,5 @@
-# Use Node.js official image
-FROM node:18-alpine 
+# Stage 1: Build the application
+FROM node:18-alpine AS builder  # ✅ Define the "builder" stage
 
 # Set working directory
 WORKDIR /pinterest-app
@@ -16,9 +16,11 @@ COPY . .
 # Build the app
 RUN npm run build
 
-# Use Nginx for serving the app
+# Stage 2: Serve the app with Nginx
 FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy the built app from the "builder" stage
+COPY --from=builder /pinterest-app/dist /usr/share/nginx/html  # ✅ Corrected path
 
 # Expose port
 EXPOSE 80
