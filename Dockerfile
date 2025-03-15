@@ -2,7 +2,7 @@
 FROM node:18-alpine 
 
 # Set working directory
-WORKDIR /Pinterest-App
+WORKDIR /pinterest-app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
